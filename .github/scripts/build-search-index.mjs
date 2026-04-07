@@ -10,12 +10,19 @@ const EVENT_NAME = process.env.GITHUB_EVENT_NAME || ''
 const EVENT_PATH = process.env.GITHUB_EVENT_PATH
 const ZERO_SHA = '0000000000000000000000000000000000000000'
 const PAGES_BASE_URL = process.env.SKILLCRAFT_PAGES_BASE_URL || 'https://skillcraft.gg'
+const SEARCH_INDEX_BUILD_MODE = process.env.SKILLCRAFT_SEARCH_INDEX_BUILD_MODE || ''
 const SEARCH_INDEX_PATH = 'search/index.json'
 const USER_AGENT = 'skillcraft-search-index'
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url))
 const DEFAULT_EXTERNAL_REGISTRIES_PATH = path.join(SCRIPT_DIR, '..', '..', 'external')
 
 export async function runSearchIndexWorkflow() {
+  if (SEARCH_INDEX_BUILD_MODE === 'full') {
+    await rebuildAndWriteIndex()
+    process.stdout.write('Rebuilt search index from full scan.\n')
+    return
+  }
+
   const eventMetadata = await loadEventMetadata()
   const existingIndex = EVENT_NAME === 'push' ? await loadExistingIndex() : []
 

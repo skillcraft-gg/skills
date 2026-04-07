@@ -39,8 +39,9 @@ The site also exposes a generated search catalog at:
 
 - `/skills-registry/search/index.json`
 
-This file is updated by GitHub Actions on every push to `main` when `skills/*/*/**`
-changes, and by manual `workflow_dispatch` runs.
+This file is rebuilt during the Pages publish workflow on every push to `main`
+and by manual `workflow_dispatch` runs. It is a publish artifact and is not
+committed to `main`.
 
 It contains a sorted list of local and external entries. Local IDs are
 `owner/slug`. External IDs currently include `anthropic:<slug>`,

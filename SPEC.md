@@ -35,6 +35,9 @@ Search index external sources are declared as individual JSON files under
 - either `marketplaceUrl`
 - or `directoryListingUrl` and `skillsDirectoryPath`
 
+The generated `search/index.json` file is produced during Pages publishing and
+is not committed to `main`.
+
 The build script discovers all `*.json` files in that directory and fails
 the run if any file is invalid or missing required fields.
 

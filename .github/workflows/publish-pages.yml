@@ -33,6 +33,12 @@ jobs:
       - name: Build changelog
         uses: skillcraft-gg/docs/.github/actions/build-changelog@main
 
+      - name: Build search index
+        env:
+          SKILLCRAFT_PAGES_BASE_URL: https://skillcraft.gg
+          SKILLCRAFT_SEARCH_INDEX_BUILD_MODE: full
+        run: node .github/scripts/build-search-index.mjs
+
       - name: Prepare Pages artifact
         uses: skillcraft-gg/docs/.github/actions/prepare-repo-pages@main
 
